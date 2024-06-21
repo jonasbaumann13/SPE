@@ -1,0 +1,15 @@
+# for new env
+conda create -n NAME python=3.11
+conda activate NAME
+
+# installation of required packages
+conda install numpy scipy numba h5py matplotlib psutil pytest pandas imageio
+
+# optional for using neural network evaluation
+# and depending on your torch installation
+# check: https://pytorch.org/get-started/locally/
+conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia
+
+# optional for using x-ray line energies in evares_exa
+pip install xraydb
+
