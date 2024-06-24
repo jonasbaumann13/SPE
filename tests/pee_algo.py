@@ -30,30 +30,30 @@ import sys
 sys.path.append('../')
 import pytest
 import numpy as np
-from base.constants import PEE_MODES
-from base import pee
+from base.constants import SPE_MODES
+from base import spe
 
 
 class TestPeeModule(object):
     def setup_method(self):
-        from base.pee_module import pee_class
+        from base.spe_module import spe_class
         data_dir = "../example_data/data/*.tsv"
         eval_dir = "data"
-        eval_name = "pee_module_test"
-        pee_mode = "four_px_area"
+        eval_name = "spe_module_test"
+        spe_mode = "four_px_area"
         npz_dic = np.load("../example_data/dark.npz")
         MD_median_frame = npz_dic['a']
         MD_std_frame = npz_dic['c']
-        self.evaluation = pee_class(data_dir, eval_dir, eval_name, pee_mode, '', md_frame=MD_median_frame, std_frame=MD_std_frame)
+        self.evaluation = spe_class(data_dir, eval_dir, eval_name, spe_mode, '', md_frame=MD_median_frame, std_frame=MD_std_frame)
 
 
-    def test_pee_no_torch(self):
+    def test_spe_no_torch(self):
         eval_name = self.evaluation.eval_name
-        for pee_mode in PEE_MODES:
-            if not 'unet' in pee_mode:
-                new_eval_name = eval_name + '_' + pee_mode
-                self.evaluation.change_settings(pee_mode=pee_mode, eval_name=new_eval_name)
-                self.evaluation.make_pee(10)
+        for spe_mode in SPE_MODES:
+            if not 'unet' in spe_mode:
+                new_eval_name = eval_name + '_' + spe_mode
+                self.evaluation.change_settings(spe_mode=spe_mode, eval_name=new_eval_name)
+                self.evaluation.make_spe(10)
 
 class TestPeeAlgorithm(object):
     def setup_method(self):
@@ -63,13 +63,13 @@ class TestPeeAlgorithm(object):
         self.image[3,3] = 4
 
     def test_epic(self):
-        out = pee.epic(self.image, 3, 6, 0.1)
+        out = spe.epic(self.image, 3, 6, 0.1)
         print(out)
 
 if __name__ == '__main__':
-   # tpm = TestPeeModule()
-   # tpm.setup_method()
-   # tpm.make_pee_no_torch()
+   tpm = TestPeeModule()
+   tpm.setup_method()
+   tpm.make_spe_no_torch()
 
    tpa = TestPeeAlgorithm()
    tpa.setup_method()

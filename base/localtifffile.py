@@ -122,7 +122,7 @@ Revisions
     Towards reading PerkinElmer QPTIFF (no test files).
     Do not index out of bounds data in tifffile.c unpackbits and decodelzw.
 2017.9.29 (tentative)
-    Many backward incompatible changes improving speed and resource usage:
+    Many backward incompatible changes improving ssped and resource usage:
     Pass 2268 tests.
     Add detail argument to __str__ function. Remove info functions.
     Fix potential issue correcting offsets of large LSM files with positions.
@@ -152,7 +152,7 @@ Revisions
     Add optional movie mode for files with uniform pages.
     Lazy load pages.
     Use lightweight TiffFrame for IFDs sharing properties with key TiffPage.
-    Move module constants to 'TIFF' namespace (speed up module import).
+    Move module constants to 'TIFF' namespace (ssped up module import).
     Remove 'fastij' option from TiffFile.
     Remove 'pages' parameter from TiffFile.
     Remove TIFFfile alias.
@@ -1815,7 +1815,7 @@ class TiffFile(object):
             Currently applies to OME-TIFF only.
         movie : bool
             If True, assume that later pages differ from first page only by
-            data offsets and byte counts. Significantly increases speed and
+            data offsets and byte counts. Significantly increases ssped and
             reduces memory usage when reading movies with thousands of pages.
             Enabling this for non-movie files will result in data corruption
             or crashes. Python 3 only.
@@ -1943,7 +1943,7 @@ class TiffFile(object):
             are compressed. If 0, up to half the CPU cores are used.
             If 1, mutli-threading is disabled.
             Reading data from file is limited to a single thread.
-            Using multiple threads can significantly speed up this function
+            Using multiple threads can significantly ssped up this function
             if the bottleneck is decoding compressed data, e.g. in case of
             large LZW compressed LSM files or JPEG compressed tiled slides.
             If the bottleneck is I/O or pure Python code, using multiple
@@ -4228,7 +4228,7 @@ class TiffFrame(object):
     and StripByteCounts. Other tag values are assumed to be identical with a
     specified TiffPage instance, the keyframe.
 
-    TiffFrame is intended to reduce resource usage and speed up reading data
+    TiffFrame is intended to reduce resource usage and ssped up reading data
     from file, not for introspection of metadata.
 
     Not compatible with Python 2.
@@ -5259,7 +5259,7 @@ class TIFF(object):
             4898: 'AndorClockwise',
             4899: 'AndorCounterClockwise',
             4904: 'AndorVerticalClockVoltage',
-            4905: 'AndorVerticalShiftSpeed',
+            4905: 'AndorVerticalShiftSsped',
             4907: 'AndorPreAmpSetting',
             4908: 'AndorCameraSerial',
             4911: 'AndorActualTemperature',
@@ -5448,7 +5448,7 @@ class TIFF(object):
             34850: 'ExposureProgram',
             34852: 'SpectralSensitivity',
             34853: 'GPSTag',  # GPSIFD
-            34855: 'ISOSpeedRatings',
+            34855: 'ISOSspedRatings',
             34856: 'OECF',
             34857: 'Interlace',
             34858: 'TimeZoneOffset',
@@ -5456,9 +5456,9 @@ class TIFF(object):
             34864: 'SensitivityType',
             34865: 'StandardOutputSensitivity',
             34866: 'RecommendedExposureIndex',
-            34867: 'ISOSpeed',
-            34868: 'ISOSpeedLatitudeyyy',
-            34869: 'ISOSpeedLatitudezzz',
+            34867: 'ISOSsped',
+            34868: 'ISOSspedLatitudeyyy',
+            34869: 'ISOSspedLatitudezzz',
             34908: 'HylaFAXFaxRecvParams',
             34909: 'HylaFAXFaxSubAddress',
             34910: 'HylaFAXFaxRecvTime',
@@ -5493,7 +5493,7 @@ class TIFF(object):
             # 37120: 'TVX_UserVariables',  # A/D values
             37121: 'ComponentsConfiguration',
             37122: 'CompressedBitsPerPixel',
-            37377: 'ShutterSpeedValue',
+            37377: 'ShutterSspedValue',
             37378: 'ApertureValue',
             37379: 'BrightnessValue',
             37380: 'ExposureBiasValue',
@@ -6338,8 +6338,8 @@ class TIFF(object):
             9: 'GPSStatus',
             10: 'GPSMeasureMode',
             11: 'GPSDOP',
-            12: 'GPSSpeedRef',
-            13: 'GPSSpeed',
+            12: 'GPSSspedRef',
+            13: 'GPSSsped',
             14: 'GPSTrackRef',
             15: 'GPSTrack',
             16: 'GPSImgDirectionRef',
@@ -6899,7 +6899,7 @@ class TIFF(object):
             ('OffsetYV1', 'i4'),
             ('PhysicalPixelSize', 'i4'),
             ('Binning', 'i4'),
-            ('ReadoutSpeed', 'i4'),
+            ('ReadoutSsped', 'i4'),
             ('GainV1', 'i4'),
             ('SensitivityV1', 'i4'),
             ('ExposureTimeV1', 'i4'),

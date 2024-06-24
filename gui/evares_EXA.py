@@ -47,7 +47,7 @@ import time
 import sys
 sys.path.append('../')
 from base.constants import line_E
-from base import pee_tools as pt
+from base import spe_tools as pt
 from base import misc_tools as mt
 
 
@@ -334,7 +334,7 @@ class evares_GUI_main(QtWidgets.QMainWindow):
         self.entry_event_x_max = QtWidgets.QLineEdit('-1',self)
         self.entry_event_y_min = QtWidgets.QLineEdit('0',self)
         self.entry_event_y_max = QtWidgets.QLineEdit('-1',self)
-        self.entry_current_file = QtWidgets.QLineEdit('J:/TUB/Projekte/TubeGEXRF/VM/Data/2018/20180621_NiCu/NiCu_9mu_230muA_500ms.pee',self)
+        self.entry_current_file = QtWidgets.QLineEdit('J:/TUB/Projekte/TubeGEXRF/VM/Data/2018/20180621_NiCu/NiCu_9mu_230muA_500ms.spe',self)
         self.entry_ecalib_m = QtWidgets.QLineEdit('1',self)
         self.entry_ecalib_n = QtWidgets.QLineEdit('0',self)
         self.entry_ecalib_ch1 = QtWidgets.QLineEdit('0',self)
@@ -663,7 +663,7 @@ class evares_GUI_main(QtWidgets.QMainWindow):
         
     def get_filename(self):
         dialog = QtWidgets.QFileDialog(self)
-        output = dialog.getOpenFileName(self, 'open file', self.current_spectrum, "pee files (*.h5 *.pee *.npy *.npz)")    ### function for a folder-GUI
+        output = dialog.getOpenFileName(self, 'open file', self.current_spectrum, "spe files (*.h5 *.spe *.npy *.npz)")    ### function for a folder-GUI
         try:
             data_path, types = output
         except:
@@ -684,13 +684,13 @@ class evares_GUI_main(QtWidgets.QMainWindow):
                         data_path_h5 = data_path+'*.h5'
                         data_path_npy = data_path+'*.npy'
                         data_path_npz = data_path+'*.npz'
-                        data_path_pee = data_path+'*.pee'
+                        data_path_spe = data_path+'*.spe'
                     else:                       
                         data_path_h5 = data_path+os.sep+'*.h5'
                         data_path_npy = data_path+os.sep+'*.npy'
                         data_path_npz = data_path+os.sep+'*.npz'
-                        data_path_pee = data_path+os.sep+'*.pee'
-                    data_path_list = glob.glob(data_path_h5) + glob.glob(data_path_npy) + glob.glob(data_path_npz) + glob.glob(data_path_pee)
+                        data_path_spe = data_path+os.sep+'*.spe'
+                    data_path_list = glob.glob(data_path_h5) + glob.glob(data_path_npy) + glob.glob(data_path_npz) + glob.glob(data_path_spe)
                 else:
                     data_path_list = glob.glob(data_path)
             else:
@@ -774,7 +774,7 @@ class evares_GUI_main(QtWidgets.QMainWindow):
         results = {}
         for file in file_list:
             if not list(self.spectra_dict[file]['sum_spec']):
-                if file.split('.')[-1] == 'pee':
+                if file.split('.')[-1] == 'spe':
                     sum_spec, n_spec, mode = pt.get_spectrum(file,
                                                                 event_no, 
                                                                 Emin_Emax=Emin_Emax, 
@@ -872,7 +872,7 @@ class evares_GUI_main(QtWidgets.QMainWindow):
             for file_path in self.spectra_dict:
                 if self.spectra_dict[file_path]['plot'] == True:
                     file_list.append(file_path)
-            sum_file = pt.sum_pee_files(file_list,None)#self.progress)
+            sum_file = pt.sum_spe_files(file_list,None)#self.progress)
             self.load_data(sum_file)
             self.comboBox_spectra.setCurrentIndex(self.comboBox_spectra.count() - 1)
             self._load_data_and_plot()
@@ -1049,8 +1049,8 @@ class evares_GUI_main(QtWidgets.QMainWindow):
             for r in self.spectra_dict[file]['rois']:
                 if not list(self.spectra_dict[file]['photon_maps'][r]): self.new_calc_pm = True
             if self.new_calc_pm:
-                # for pee format
-                if file.split('.')[-1] == 'pee':
+                # for spe format
+                if file.split('.')[-1] == 'spe':
                     results[file] = pt.make_photon_maps(file, self.spectra_dict[file]['rois'], event_no=event_no, progress_bar=progress_callback, n1=self.spectra_dict[file]['n1_n2'][0], n2=self.spectra_dict[file]['n1_n2'][1])
                     
                 # for hdf5 format load cube if it is not available, yet -- make sure only one cube is loaded -- should be the one with current_spectrum
@@ -1420,7 +1420,7 @@ class evares_GUI_main(QtWidgets.QMainWindow):
         xy_roi = [[int(self.entry_event_y_min.text()), int(self.entry_event_y_max.text())],
                   [int(self.entry_event_x_min.text()), int(self.entry_event_x_max.text())]]
 
-        if self.current_spectrum.split('.')[-1] == 'pee':
+        if self.current_spectrum.split('.')[-1] == 'spe':
             sum_spec, n_spec, mode = pt.get_spectrum(self.current_spectrum, 10000, Emin_Emax=(E_min,E_max), xy_roi = xy_roi, progress_bar=self.progress)
             sum_spec = np.sum(n_spec,axis=0)
         elif self.current_spectrum.split('.')[-1] in ['h5', 'hdf5', 'npy', 'npz']:
@@ -1475,4 +1475,4 @@ if __name__ == '__main__':
     main()
     
     
-#J:/TUB/Projekte/TubeGEXRF/VM/Data/2018/20180621_NiCu/NiCu_9mu_230muA_500ms.pee
+#J:/TUB/Projekte/TubeGEXRF/VM/Data/2018/20180621_NiCu/NiCu_9mu_230muA_500ms.spe

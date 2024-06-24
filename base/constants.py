@@ -32,7 +32,7 @@ except:
 from enum import Enum
 from typing import Union
 
-PEE_LABELS = {'4px-Area': 'four_px_area',
+SPE_LABELS = {'4px-Area': 'four_px_area',
              'Clustering': 'clustering',
              '4px-Area-Clustering': 'four_px_area_clustering',
              'Gaussian-Model-Fit (no jit)': 'gaussian_model_fit',
@@ -42,7 +42,7 @@ PEE_LABELS = {'4px-Area': 'four_px_area',
              'Small UNet': 'small_unet',
              'Big UNet': 'big_unet',
              }
-PEE_MODES = {v:k for k,v in PEE_LABELS.items()}
+SPE_MODES = {v:k for k,v in SPE_LABELS.items()}
 
 class EasyEnum(Enum):
     """

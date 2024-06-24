@@ -26,7 +26,7 @@ SOFTWARE.
 
 
 import numpy as np
-from .pee_tools import contains_box
+from .spe_tools import contains_box
 
 
 def pixel_integrated_2d_gaussian(volume, z_0, center_x, center_y, sigma_x, sigma_y, area_shape, pixel_x=1, pixel_y=1):
