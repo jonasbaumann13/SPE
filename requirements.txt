@@ -1,0 +1,13 @@
+this is not yet a propper requrements file ... will be done after the conference. But thanks for already checking it out : )
+
+numpy 
+scipy 
+numba 
+h5py 
+matplotlib 
+psutil 
+pytest 
+pandas 
+imageio
+pytorch
+xraydb
